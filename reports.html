@@ -3,128 +3,908 @@
 
 <head>
 
-<title>Monthly Report</title>
+<title>Monthly Reports</title>
 
-<link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+
+<!-- PDF LIBRARY -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
+
+<style>
+
+/* RESET */
+
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+
+}
+
+
+
+/* BODY */
+
+body{
+
+font-family:Arial,sans-serif;
+
+background:
+
+linear-gradient(
+135deg,
+#001F3F,
+#003566,
+#00509D,
+#00A8E8
+);
+
+background-size:400% 400%;
+
+animation:bgMove 12s ease infinite;
+
+min-height:100vh;
+
+overflow-x:hidden;
+
+color:white;
+
+}
+
+
+
+/* BACKGROUND ANIMATION */
+
+@keyframes bgMove{
+
+0%{
+background-position:0% 50%;
+}
+
+50%{
+background-position:100% 50%;
+}
+
+100%{
+background-position:0% 50%;
+}
+
+}
+
+
+
+/* GLOW EFFECT */
+
+body::before{
+
+content:"";
+
+position:fixed;
+
+width:650px;
+height:650px;
+
+background:rgba(
+0,
+180,
+255,
+0.18
+);
+
+border-radius:50%;
+
+top:-250px;
+right:-150px;
+
+filter:blur(90px);
+
+z-index:-2;
+
+animation:float1 8s infinite alternate;
+
+}
+
+
+
+body::after{
+
+content:"";
+
+position:fixed;
+
+width:500px;
+height:500px;
+
+background:rgba(
+0,
+120,
+255,
+0.15
+);
+
+border-radius:50%;
+
+bottom:-200px;
+left:-150px;
+
+filter:blur(100px);
+
+z-index:-2;
+
+animation:float2 10s infinite alternate;
+
+}
+
+
+
+@keyframes float1{
+
+from{
+transform:translateY(0px);
+}
+
+to{
+transform:translateY(60px);
+}
+
+}
+
+
+
+@keyframes float2{
+
+from{
+transform:translateX(0px);
+}
+
+to{
+transform:translateX(60px);
+}
+
+}
+
+
+
+/* SIDEBAR */
+
+.sidebar{
+
+position:fixed;
+
+width:240px;
+height:100vh;
+
+background:rgba(
+0,
+0,
+0,
+0.25
+);
+
+backdrop-filter:blur(18px);
+
+padding-top:30px;
+
+box-shadow:
+0 0 25px rgba(
+0,
+0,
+0,
+0.4
+);
+
+z-index:10;
+
+}
+
+
+
+/* TITLE */
+
+.sidebar h2{
+
+text-align:center;
+
+font-size:38px;
+
+margin-bottom:60px;
+
+color:white;
+
+text-shadow:
+0 0 15px cyan;
+
+}
+
+
+
+/* LINKS */
+
+.sidebar a{
+
+display:block;
+
+padding:18px 28px;
+
+margin:12px;
+
+font-size:22px;
+
+font-weight:bold;
+
+color:white;
+
+text-decoration:none;
+
+border-radius:18px;
+
+transition:0.5s;
+
+}
+
+
+
+.sidebar a:hover{
+
+background:rgba(
+255,
+255,
+255,
+0.15
+);
+
+transform:translateX(10px);
+
+box-shadow:
+0 0 20px cyan;
+
+}
+
+
+
+/* MAIN CONTENT */
+
+.main-content{
+
+margin-left:270px;
+
+padding:45px;
+
+}
+
+
+
+/* HEADING */
+
+.main-content h1{
+
+font-size:58px;
+
+margin-bottom:45px;
+
+text-shadow:
+0 0 20px rgba(
+255,
+255,
+255,
+0.3
+);
+
+}
+
+
+
+/* GRID */
+
+.report-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(2,320px);
+
+gap:35px;
+
+}
+
+
+
+/* CARDS */
+
+.report-card{
+
+height:190px;
+
+border-radius:30px;
+
+background:rgba(
+255,
+255,
+255,
+0.12
+);
+
+backdrop-filter:blur(22px);
+
+border:
+1px solid rgba(
+255,
+255,
+255,
+0.15
+);
+
+box-shadow:
+0 10px 35px rgba(
+0,
+0,
+0,
+0.35
+);
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+transition:0.5s;
+
+}
+
+
+
+.report-card:hover{
+
+transform:
+translateY(-10px)
+scale(1.05);
+
+box-shadow:
+0 0 30px cyan;
+
+}
+
+
+
+/* CARD TEXT */
+
+.report-card h3{
+
+font-size:30px;
+
+margin-bottom:18px;
+
+}
+
+
+
+.report-card p{
+
+font-size:48px;
+
+font-weight:bold;
+
+}
+
+
+
+/* BUTTON */
+
+.download-btn{
+
+margin-top:55px;
+
+padding:18px 50px;
+
+font-size:22px;
+
+border:none;
+
+border-radius:45px;
+
+cursor:pointer;
+
+color:white;
+
+background:
+
+linear-gradient(
+45deg,
+#ff1744,
+#2979ff
+);
+
+transition:0.5s;
+
+}
+
+
+
+.download-btn:hover{
+
+transform:scale(1.1);
+
+box-shadow:
+0 0 25px cyan;
+
+}
+
+</style>
 
 </head>
 
 <body>
 
+
+
+<!-- SIDEBAR -->
+
 <div class="sidebar">
 
 <h2>RD System</h2>
 
-<a href="dashboard.html">Dashboard</a>
+<a href="dashboard.html">
 
-<a href="customers.html">Customers</a>
+Dashboard
 
-<a href="payments.html">Payments</a>
+</a>
 
-<a href="reports.html">Reports</a>
+
+<a href="customers.html">
+
+Customers
+
+</a>
+
+
+<a href="reports.html">
+
+Reports
+
+</a>
 
 </div>
 
+
+
+
+<!-- MAIN CONTENT -->
 
 <div class="main-content">
 
 <h1>Monthly Report</h1>
 
-<div class="card">
+
+
+<div class="report-grid">
+
+
+<div class="report-card">
 
 <h3>Total Customers</h3>
-<p id="reportTotal"></p>
+
+<p id="totalCustomers">
+
+0
+
+</p>
 
 </div>
 
 
-<div class="card">
+
+<div class="report-card">
 
 <h3>Paid Customers</h3>
-<p id="reportPaid"></p>
+
+<p id="paidCustomers">
+
+0
+
+</p>
 
 </div>
 
 
-<div class="card">
+
+<div class="report-card">
 
 <h3>Pending Customers</h3>
-<p id="reportPending"></p>
+
+<p id="pendingCustomers">
+
+0
+
+</p>
 
 </div>
 
 
-<div class="card">
+
+<div class="report-card">
 
 <h3>Total Collection</h3>
-<p id="reportAmount"></p>
+
+<p id="totalCollection">
+
+Rs.0
+
+</p>
 
 </div>
 
 
-<button onclick="downloadReport()">
+</div>
+
+
+
+<button
+class="download-btn"
+onclick="downloadPDF()">
 
 Download Report
 
 </button>
 
+
 </div>
+
+
+
 
 
 <script>
 
-document.getElementById("reportTotal").innerHTML=
-localStorage.getItem("totalCustomers") || 0;
+/* LOAD CUSTOMERS */
+
+let customers=
+JSON.parse(
+localStorage.getItem(
+"customers"
+)
+)||[];
 
 
-document.getElementById("reportPaid").innerHTML=
-localStorage.getItem("paidCustomers") || 0;
+
+/* COUNTS */
+
+let total=
+customers.length;
 
 
-document.getElementById("reportPending").innerHTML=
-localStorage.getItem("pendingCustomers") || 0;
+let paidCustomers=
+customers.filter(
+c=>c.status=="Paid"
+);
 
 
-document.getElementById("reportAmount").innerHTML=
-"₹"+(localStorage.getItem("totalAmount") || 0);
+let pendingCustomers=
+customers.filter(
+c=>c.status!="Paid"
+);
 
 
-function downloadReport(){
+let paidCount=
+paidCustomers.length;
 
-let report=`
 
-MONTHLY REPORT
+let pendingCount=
+pendingCustomers.length;
 
----------------------
 
-Total Customers:
-${localStorage.getItem("totalCustomers")}
 
-Paid Customers:
-${localStorage.getItem("paidCustomers")}
+/* TOTAL COLLECTION */
 
-Pending Customers:
-${localStorage.getItem("pendingCustomers")}
+let totalCollection=0;
 
-Total Collection:
-₹${localStorage.getItem("totalAmount")}
+paidCustomers.forEach(customer=>{
 
-`;
+totalCollection+=
+Number(customer.amount)||0;
 
-let blob=
-new Blob([report],
-{type:"text/plain"});
+});
 
-let a=
-document.createElement("a");
 
-a.href=
-URL.createObjectURL(blob);
 
-a.download=
-"MonthlyReport.txt";
+/* SHOW VALUES */
 
-a.click();
+document.getElementById(
+"totalCustomers"
+).innerHTML=
+total;
+
+
+document.getElementById(
+"paidCustomers"
+).innerHTML=
+paidCount;
+
+
+document.getElementById(
+"pendingCustomers"
+).innerHTML=
+pendingCount;
+
+
+document.getElementById(
+"totalCollection"
+).innerHTML=
+
+"Rs."+totalCollection;
+
+
+
+
+
+
+/* DOWNLOAD PDF */
+
+async function downloadPDF(){
+
+const { jsPDF } = window.jspdf;
+
+const doc = new jsPDF();
+
+
+
+/* TITLE */
+
+doc.setFontSize(22);
+
+doc.text(
+"RD Monthly Report",
+20,
+20
+);
+
+
+
+/* SUMMARY */
+
+doc.setFontSize(15);
+
+doc.text(
+"Total Customers : "+String(total),
+20,
+45
+);
+
+doc.text(
+"Paid Customers : "+String(paidCount),
+20,
+55
+);
+
+doc.text(
+"Pending Customers : "+String(pendingCount),
+20,
+65
+);
+
+doc.text(
+"Total Collection : Rs."+String(totalCollection),
+20,
+75
+);
+
+
+
+
+/* PAID CUSTOMER TABLE */
+
+let y=100;
+
+doc.setFontSize(18);
+
+doc.text(
+"Paid Customer Details",
+20,
+y
+);
+
+y+=12;
+
+
+
+/* HEADER */
+
+doc.setFontSize(12);
+
+doc.text(
+"Name",
+20,
+y
+);
+
+doc.text(
+"Account",
+70,
+y
+);
+
+doc.text(
+"Phone",
+120,
+y
+);
+
+doc.text(
+"Amount",
+170,
+y
+);
+
+y+=10;
+
+
+
+/* PAID DATA */
+
+paidCustomers.forEach(customer=>{
+
+doc.text(
+String(customer.name),
+20,
+y
+);
+
+doc.text(
+String(customer.account),
+70,
+y
+);
+
+doc.text(
+String(customer.phone),
+120,
+y
+);
+
+doc.text(
+"Rs."+String(customer.amount),
+170,
+y
+);
+
+y+=10;
+
+
+
+if(y>270)
+{
+
+doc.addPage();
+
+y=20;
+
+}
+
+});
+
+
+
+/* PENDING CUSTOMER TABLE */
+
+y+=15;
+
+doc.setFontSize(18);
+
+doc.text(
+"Pending Customer Details",
+20,
+y
+);
+
+y+=12;
+
+
+
+/* HEADER */
+
+doc.setFontSize(12);
+
+doc.text(
+"Name",
+20,
+y
+);
+
+doc.text(
+"Account",
+70,
+y
+);
+
+doc.text(
+"Phone",
+120,
+y
+);
+
+doc.text(
+"Amount",
+170,
+y
+);
+
+y+=10;
+
+
+
+/* PENDING DATA */
+
+pendingCustomers.forEach(customer=>{
+
+doc.text(
+String(customer.name),
+20,
+y
+);
+
+doc.text(
+String(customer.account),
+70,
+y
+);
+
+doc.text(
+String(customer.phone),
+120,
+y
+);
+
+doc.text(
+"Rs."+String(customer.amount),
+170,
+y
+);
+
+y+=10;
+
+
+
+if(y>270)
+{
+
+doc.addPage();
+
+y=20;
+
+}
+
+});
+
+
+
+/* FOOTER */
+
+doc.setFontSize(10);
+
+doc.text(
+"Generated Securely by RD Management System",
+20,
+285
+);
+
+
+
+/* SAVE PDF */
+
+doc.save(
+"RD_Monthly_Report.pdf"
+);
 
 }
 
