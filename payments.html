@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Payments</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<!-- Sidebar -->
+
+<div class="sidebar">
+
+<h2>RD System</h2>
+
+<a href="dashboard.html">Dashboard</a>
+
+<a href="customers.html">Customers</a>
+
+<a href="payments.html">Payments</a>
+
+<a href="reports.html">Reports</a>
+
+</div>
+
+
+<!-- Main Content -->
+
+<div class="main-content">
+
+<h1>Payment Management</h1>
+
+<table id="paymentTable">
+
+<tr>
+
+<th>Name</th>
+
+<th>Account Number</th>
+
+<th>Monthly Amount</th>
+
+<th>Status</th>
+
+<th>Action</th>
+
+</tr>
+
+</table>
+
+</div>
+
+
+
+<script>
+
+window.onload=function(){
+
+loadPayments();
+
+};
+
+
+function loadPayments(){
+
+let customers=
+
+JSON.parse(localStorage.getItem("customers")) || [];
+
+
+let table=
+
+document.getElementById("paymentTable");
+
+
+table.innerHTML=`
+
+<tr>
+
+<th>Name</th>
+
+<th>Account Number</th>
+
+<th>Monthly Amount</th>
+
+<th>Status</th>
+
+<th>Action</th>
+
+</tr>
+
+`;
+
+
+customers.forEach((customer,index)=>{
+
+
+let row=
+
+table.insertRow();
+
+
+row.insertCell(0).innerHTML=
+customer.name;
+
+
+row.insertCell(1).innerHTML=
+customer.account;
+
+
+row.insertCell(2).innerHTML=
+"₹"+customer.amount;
+
+
+if(customer.status=="Paid")
+{
+
+row.insertCell(3).innerHTML=
+'<span class="paid">Paid</span>';
+
+}
+else{
+
+row.insertCell(3).innerHTML=
+'<span class="pending">Pending</span>';
+
+}
+
+
+row.insertCell(4).innerHTML=
+
+'<button onclick="markPaid('+index+')">Paid</button>'+
+
+'<button onclick="sendReminder('+index+')">Reminder</button>';
+
+});
+
+
+}
+
+
+
+function markPaid(index){
+
+let customers=
+
+JSON.parse(localStorage.getItem("customers"));
+
+
+customers[index].status=
+"Paid";
+
+
+localStorage.setItem(
+
+"customers",
+
+JSON.stringify(customers)
+
+);
+
+
+loadPayments();
+
+}
+
+
+
+function sendReminder(index){
+
+let customers=
+
+JSON.parse(localStorage.getItem("customers"));
+
+alert(
+
+"Reminder: Collect payment from "
+
++customers[index].name+
+
+" Amount: ₹"+
+
+customers[index].amount
+
+);
+
+}
+
+</script>
+
+</body>
+
+</html>

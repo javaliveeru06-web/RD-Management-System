@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Customers</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<!-- Sidebar -->
+
+<div class="sidebar">
+
+<h2>RD System</h2>
+
+<a href="dashboard.html">Dashboard</a>
+
+<a href="customers.html">Customers</a>
+
+<a href="payments.html">Payments</a>
+
+<a href="reports.html">Reports</a>
+
+</div>
+
+
+
+<!-- Main Content -->
+
+<div class="main-content">
+
+<h1>Customer Management</h1>
+
+
+<!-- Input Section -->
+
+<input type="text"
+id="name"
+placeholder="Customer Name">
+
+
+<input type="number"
+id="age"
+placeholder="Age">
+
+
+<input type="text"
+id="account"
+placeholder="Account Number">
+
+
+<input type="text"
+id="phone"
+placeholder="Phone Number">
+
+
+<input type="number"
+id="amount"
+placeholder="Monthly Amount">
+
+
+<input type="date"
+id="dueDate">
+
+
+<button onclick="addCustomer()">
+
+Add Customer
+
+</button>
+
+
+<br><br>
+
+
+<!-- Search -->
+
+<input type="text"
+
+id="search"
+
+placeholder="Search by Account Number"
+
+onkeyup="searchCustomer()">
+
+
+<br><br>
+
+
+<!-- Customer Table -->
+
+<table id="customerTable">
+
+<tr>
+
+<th>Name</th>
+
+<th>Age</th>
+
+<th>Account No</th>
+
+<th>Phone</th>
+
+<th>Monthly Amount</th>
+
+<th>Due Date</th>
+
+<th>Status</th>
+
+<th>Action</th>
+
+</tr>
+
+</table>
+
+
+<br><br>
+
+
+<!-- Notification Box -->
+
+<div class="notification-box">
+
+<h2>Notifications</h2>
+
+<ul id="notificationList">
+
+</ul>
+
+</div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>

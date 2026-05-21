@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Monthly Report</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>RD System</h2>
+
+<a href="dashboard.html">Dashboard</a>
+
+<a href="customers.html">Customers</a>
+
+<a href="payments.html">Payments</a>
+
+<a href="reports.html">Reports</a>
+
+</div>
+
+
+<div class="main-content">
+
+<h1>Monthly Report</h1>
+
+<div class="card">
+
+<h3>Total Customers</h3>
+<p id="reportTotal"></p>
+
+</div>
+
+
+<div class="card">
+
+<h3>Paid Customers</h3>
+<p id="reportPaid"></p>
+
+</div>
+
+
+<div class="card">
+
+<h3>Pending Customers</h3>
+<p id="reportPending"></p>
+
+</div>
+
+
+<div class="card">
+
+<h3>Total Collection</h3>
+<p id="reportAmount"></p>
+
+</div>
+
+
+<button onclick="downloadReport()">
+
+Download Report
+
+</button>
+
+</div>
+
+
+<script>
+
+document.getElementById("reportTotal").innerHTML=
+localStorage.getItem("totalCustomers") || 0;
+
+
+document.getElementById("reportPaid").innerHTML=
+localStorage.getItem("paidCustomers") || 0;
+
+
+document.getElementById("reportPending").innerHTML=
+localStorage.getItem("pendingCustomers") || 0;
+
+
+document.getElementById("reportAmount").innerHTML=
+"₹"+(localStorage.getItem("totalAmount") || 0);
+
+
+function downloadReport(){
+
+let report=`
+
+MONTHLY REPORT
+
+---------------------
+
+Total Customers:
+${localStorage.getItem("totalCustomers")}
+
+Paid Customers:
+${localStorage.getItem("paidCustomers")}
+
+Pending Customers:
+${localStorage.getItem("pendingCustomers")}
+
+Total Collection:
+₹${localStorage.getItem("totalAmount")}
+
+`;
+
+let blob=
+new Blob([report],
+{type:"text/plain"});
+
+let a=
+document.createElement("a");
+
+a.href=
+URL.createObjectURL(blob);
+
+a.download=
+"MonthlyReport.txt";
+
+a.click();
+
+}
+
+</script>
+
+</body>
+
+</html>
