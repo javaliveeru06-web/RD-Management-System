@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 <title>Dashboard</title>
-
 <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
@@ -16,8 +15,6 @@
 <a href="dashboard.html">Dashboard</a>
 
 <a href="customers.html">Customers</a>
-
-<a href="payments.html">Payments</a>
 
 <a href="reports.html">Reports</a>
 
@@ -31,103 +28,71 @@
 <div class="cards">
 
 <div class="card">
-<h3>Total Customers</h3>
-<div class="card">
 
 <h3>Total Customers</h3>
-
-<p id="total"></p>
+<p id="total">0</p>
 
 </div>
 
 
-<div class="card">
+<div class="card"
+onclick="location.href='paid.html'">
 
 <h3>Paid Customers</h3>
-
-<p id="paid"></p>
+<p id="paid">0</p>
 
 </div>
 
 
-<div class="card">
+<div class="card"
+onclick="location.href='pending.html'">
 
 <h3>Pending Customers</h3>
-
-<p id="pending"></p>
+<p id="pending">0</p>
 
 </div>
-</div>
+
 
 <div class="card">
-<h3>Paid Customers</h3>
-<p>100</p>
-</div>
 
-<div class="card">
-<h3>Pending Customers</h3>
-<p>50</p>
-</div>
-
-<div class="card">
 <h3>Total Collection</h3>
-<p>₹50,000</p>
+<p id="collection">₹0</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>Remaining Collection</h3>
+
+<p id="remaining">
+
+₹0
+
+</p>
+
 </div>
 
 </div>
 
 
-<div class="notification-box">
+<br>
+
+<div class="card">
 
 <h2>Notifications</h2>
 
-<ul>
-
-<li>🔔 Ravi payment pending</li>
-
-<li>🔔 Suresh due tomorrow</li>
-
-<li>🔔 Kumar paid today</li>
+<ul id="notificationList">
 
 </ul>
 
 </div>
 
+
 </div>
-<script>
 
-document.getElementById("total")
-.innerHTML=
-localStorage.getItem("totalCustomers")||0;
-
-document.getElementById("paid")
-.innerHTML=
-localStorage.getItem("paidCustomers")||0;
-
-document.getElementById("pending")
-.innerHTML=
-localStorage.getItem("pendingCustomers")||0;
-
-</script>
-
-<script>
-
-document.getElementById("total").innerHTML=
-localStorage.getItem("totalCustomers") || 0;
-
-document.getElementById("paid").innerHTML=
-localStorage.getItem("paidCustomers") || 0;
-
-document.getElementById("pending").innerHTML=
-localStorage.getItem("pendingCustomers") || 0;
-
-document.getElementById("totalCollection").innerHTML=
-"₹"+(localStorage.getItem("totalAmount") || 0);
-
-document.getElementById("pendingCollection").innerHTML=
-"₹"+(localStorage.getItem("pendingAmount") || 0);
-
-</script>
+<script src="script.js"></script>
 
 </body>
+
 </html>
